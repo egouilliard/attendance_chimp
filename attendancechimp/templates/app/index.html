@@ -1,0 +1,21 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <p style="text-align:center;"> User Bio: Brandon Li </p>
+  <p style="text-align:center;"> I am a 4th year Economics student minoring in Computer Science, and I love playing soccer and video games! </p>
+  <p style="text-align:center;"> My Favorite Foods (Variable):</p>
+  <ul>
+    {% for food in fav_food %}
+      <li>{{ food }}</li>
+    {% endfor %}
+  </ul>
+{% if user.is_authenticated %}
+  <p style="text-align:center;">Hi <strong>{{ user.username }}</strong>!</p>
+{% else %}
+  <p style="text-align:center;">You are not logged in.</p>
+  <p style="text-align:center;"><a href="{% url 'login' %}"><strong>Log In</strong></a></p>
+{% endif %}
+{% endblock %}
