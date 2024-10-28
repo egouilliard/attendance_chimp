@@ -30,3 +30,43 @@ AttendanceChimp should have tools to mitigate evasion through duplicate QR codes
 
 ## Architecture
 AttendanceChimp will be built on `python-django` (https://www.djangoproject.com/). Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. It takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel. Django can run a local web-server and can easily interface with a database backend. We will be using a SQLite databaase backend. SQLite is a database engine written in the C programming language. It is not a standalone app; rather, it is a library that software developers embed in their apps.
+
+## Using Docker to Run the Application
+
+To make it easier to run the application, we have provided a Dockerfile, a docker-compose file, and a Makefile. These files allow you to build, run, and stop the application using Docker containers.
+
+### Dockerfile
+
+The Dockerfile defines the Docker image for the application. It uses the official Python image as the base image, sets the working directory in the container to `/app`, copies the `requirements.txt` file into the container, installs the required Python packages using `pip`, copies the rest of the application code into the container, exposes port 8000, and runs the Django development server.
+
+### docker-compose.yml
+
+The `docker-compose.yml` file defines the services required to run the application. It includes a web service that builds from the Dockerfile, sets the command to run the Django development server, mounts the current directory as a volume in the container, exposes port 8000, and defines a database service using the `postgres:13` image with the necessary environment variables and a volume for the database data.
+
+### Makefile
+
+The Makefile provides easy-to-use commands for building and running the Docker containers. It defines a `.PHONY` target for `build`, `up`, and `down`, and provides the following commands:
+
+* `make build`: Builds the Docker images.
+* `make up`: Starts the Docker containers.
+* `make down`: Stops the Docker containers.
+
+### Building, Running, and Stopping the Application
+
+To build the Docker images, run the following command:
+
+```sh
+make build
+```
+
+To start the Docker containers, run the following command:
+
+```sh
+make up
+```
+
+To stop the Docker containers, run the following command:
+
+```sh
+make down
+```
